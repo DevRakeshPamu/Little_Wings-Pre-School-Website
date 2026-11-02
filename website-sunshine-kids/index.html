@@ -1,0 +1,102 @@
+<title>Sunshine Kids Preschool</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@400;600;700&display=swap">
+<style>
+/* Layout: one scrolling school site, sticky nav, hero with enquiry CTA, programs grid, day timeline, gallery tiles, enquiry form */
+:root{--bg:#f6f9fd;--surface:#fff;--ink:#1f2a44;--mut:#55617a;--line:#dde6f2;--blue:#3d5fd0;--blue-t:#dfe8fb;--sun:#f4c542;--sun-t:#fdf0c4;--mint-t:#d6f2e4;--peach-t:#fde0d2;--lav-t:#e8e1f8;--onblue:#fff;--hf:'Fredoka',system-ui,sans-serif;--bf:'Nunito',system-ui,sans-serif}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#121726;--surface:#1b2236;--ink:#eef1f8;--mut:#a3adc4;--line:#2a3350;--blue:#8aa6f2;--blue-t:#24325a;--sun:#f4c542;--sun-t:#4a3f1c;--mint-t:#1d4034;--peach-t:#4d3226;--lav-t:#332f5a;--onblue:#121726;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#121726;--surface:#1b2236;--ink:#eef1f8;--mut:#a3adc4;--line:#2a3350;--blue:#8aa6f2;--blue-t:#24325a;--sun:#f4c542;--sun-t:#4a3f1c;--mint-t:#1d4034;--peach-t:#4d3226;--lav-t:#332f5a;--onblue:#121726;color-scheme:dark}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 var(--bf);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+.w{max-width:1120px;margin:0 auto}h1,h2,h3{font-family:var(--hf);font-weight:600;line-height:1.15;margin:0;text-wrap:balance}
+:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .w{display:flex;align-items:center;gap:20px;padding:12px 0;flex-wrap:wrap}
+.brand{font-family:var(--hf);font-size:22px;font-weight:600;color:var(--ink);text-decoration:none;margin-right:auto}.brand span{color:var(--blue)}
+nav a.l{color:var(--mut);text-decoration:none;font-weight:600;font-size:16px}nav a.l:hover{color:var(--ink)}
+.btn{display:inline-block;background:var(--blue);color:var(--onblue);border:0;border-radius:12px;padding:12px 22px;font:700 17px var(--bf);text-decoration:none;cursor:pointer}
+.btn.o{background:transparent;color:var(--ink);border:2px solid var(--line)}
+.tg{background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:6px 12px;font:600 15px var(--bf);cursor:pointer}
+section{padding-block:72px}.k{font-weight:700;font-size:14px;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin:0 0 10px}
+h2{font-size:clamp(30px,4vw,44px);margin-bottom:12px}.sub{color:var(--mut);max-width:60ch;margin:0 0 36px}
+.hero{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;padding-block:64px}
+.hero h1{font-size:clamp(38px,6vw,64px)}.hero p{color:var(--mut);font-size:20px;max-width:46ch;margin:18px 0 28px}
+.row{display:flex;gap:12px;flex-wrap:wrap}
+.panel{background:var(--sun-t);border-radius:28px;padding:28px;display:grid;gap:12px}
+.panel div{background:var(--surface);border-radius:16px;padding:14px 18px;display:flex;justify-content:space-between;gap:12px}.panel b{font-family:var(--hf)}
+.g{display:grid;gap:20px;grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.c{border-radius:22px;padding:26px;min-width:0}.c h3{font-size:24px;margin-bottom:6px}.c p{margin:0;color:var(--ink)}.c small{display:block;font-weight:700;margin-bottom:10px}
+.t1{background:var(--blue-t)}.t2{background:var(--sun-t)}.t3{background:var(--mint-t)}.t4{background:var(--peach-t)}.t5{background:var(--lav-t)}
+.band{background:var(--surface);border-block:1px solid var(--line)}
+.day{display:grid;gap:0;max-width:720px}.day div{display:grid;grid-template-columns:96px 1fr;gap:16px;padding:14px 0;border-top:1px solid var(--line)}.day b{font-variant-numeric:tabular-nums;color:var(--blue)}
+.gal{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}.gal div{aspect-ratio:4/3;border-radius:18px;display:flex;align-items:flex-end;padding:14px;font-weight:700;max-width:100%}
+.q{font-family:var(--hf);font-size:22px;line-height:1.4;margin:0 0 12px}
+form{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;background:var(--surface);border:1px solid var(--line);border-radius:24px;padding:28px}
+label{display:grid;gap:6px;font-weight:700;font-size:15px}label.f{grid-column:1/-1}
+input,select,textarea{font:400 17px var(--bf);color:var(--ink);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:11px 12px;width:100%;min-width:0}
+.ok{grid-column:1/-1;background:var(--mint-t);border-radius:14px;padding:16px 18px;font-weight:600}
+footer{padding-block:40px;color:var(--mut);font-size:15px}
+@media(max-width:820px){.hero{grid-template-columns:1fr;padding-block:36px}section{padding-block:48px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+<nav><div class="w"><a class="brand" href="#top">Sunshine <span>Kids</span></a>
+<a class="l" href="#about">About</a><a class="l" href="#programs">Programs</a><a class="l" href="#day">A day here</a><a class="l" href="#gallery">Gallery</a><a class="l" href="#contact">Contact</a>
+<button class="tg" id="tg" type="button" aria-label="Switch light or dark theme">Theme</button><a class="btn" href="#admissions">Enquire now</a></div></nav>
+
+<main id="top" class="w">
+<div class="hero"><div><p class="k">Preschool in Ahmedabad, Gujarat</p><h1>A happy first school, with every day shared with you</h1>
+<p>Playgroup to UKG for ages 1½ to 5½. Parents see the child’s day as it happens: arrival, play, meals, naps and learning.</p>
+<div class="row"><a class="btn" href="#admissions">Book a school visit</a><a class="btn o" href="#programs">See programs</a></div></div>
+<div class="panel" aria-label="Today at Sunshine Kids"><b style="font-family:var(--hf);font-size:20px">Today at Sunshine Kids</b>
+<div><span>Circle time</span><b>9:30</b></div><div><span>Colour recognition</span><b>10:00</b></div><div><span>Snack, then phonics</span><b>10:30</b></div><div><span>Music and movement</span><b>3:00</b></div></div></div>
+</main>
+
+<div class="band"><section id="about" class="w"><p class="k">About us</p><h2>Small groups, warm teachers, clear updates</h2>
+<p class="sub">Sunshine Kids teaches through play, stories, music and hands-on activities. Teachers note each child’s progress in everyday words, and parents get a daily summary with photos you approve.</p>
+<div class="g"><div class="c t1"><h3>Learning through play</h3><p>Colours, letters, numbers and shapes taught in short, joyful activities.</p></div>
+<div class="c t3"><h3>Safe pickup</h3><p>Children go home only with people on your authorized list, and you get a notification each time.</p></div>
+<div class="c t4"><h3>Healthy meals</h3><p>A weekly menu shared in advance, with allergies and diets noted for each child.</p></div>
+<div class="c t5"><h3>Parents in the loop</h3><p>Events, holidays and reminders arrive in one place instead of scattered chat groups.</p></div></div></section></div>
+
+<section id="programs" class="w"><p class="k">Programs</p><h2>Find the right group for your child</h2><p class="sub">Timings are 8:30 AM to 5:00 PM, Monday to Saturday. Daycare hours can be extended on request.</p>
+<div class="g"><div class="c t2"><small>1½ to 2½ years</small><h3>Playgroup</h3><p>Gentle first steps: songs, sensory play and settling in with a caring adult.</p></div>
+<div class="c t1"><small>2½ to 3½ years</small><h3>Nursery</h3><p>Colours, early words, sharing and self-care in a play-led day.</p></div>
+<div class="c t3"><small>3½ to 4½ years</small><h3>LKG</h3><p>Phonics, numbers and storytelling, with plenty of movement.</p></div>
+<div class="c t5"><small>4½ to 5½ years</small><h3>UKG</h3><p>Reading and counting readiness, projects and school preparation.</p></div>
+<div class="c t4"><small>1½ to 5½ years</small><h3>Daycare</h3><p>Safe, caring extended hours with meals, rest and play.</p></div></div></section>
+
+<div class="band"><section id="day" class="w"><p class="k">A day here</p><h2>What your child does, hour by hour</h2><p class="sub">A typical day in Nursery. You see these moments in your daily summary.</p>
+<div class="day"><div><b>8:55</b><span>Arrival and welcome</span></div><div><b>9:30</b><span>Circle time: hello song and greetings</span></div><div><b>10:00</b><span>Learning activity: colour recognition</span></div><div><b>10:30</b><span>Snack</span></div><div><b>11:15</b><span>Phonics: letter of the day</span></div><div><b>12:20</b><span>Lunch</span></div><div><b>1:00</b><span>Nap time</span></div><div><b>3:00</b><span>Music and movement</span></div><div><b>4:05</b><span>Pickup by an authorized family member</span></div></div></section></div>
+
+<section id="gallery" class="w"><p class="k">Gallery</p><h2>Moments from our classrooms</h2><p class="sub">Sample tiles. The school’s own photos appear here, shown only with parent consent.</p>
+<div class="gal"><div class="t1">Colour mixing</div><div class="t2">Annual day</div><div class="t3">Story time</div><div class="t4">Clay shapes</div><div class="t5">Music and movement</div><div class="t1">Garden play</div></div></section>
+
+<div class="band"><section class="w"><p class="k">Parents say</p><p class="q">“I finally know what my daughter did all day, and I see it before she even gets home.”</p><p style="color:var(--mut);margin:0">Sample testimonial: replace with a real parent’s words.</p></section></div>
+
+<section id="admissions" class="w"><p class="k">Admissions</p><h2>Send an admission enquiry</h2><p class="sub">Tell us about your child. The school will call you to arrange a visit.</p>
+<form id="f"><label>Parent name<input id="pn" required autocomplete="name"></label><label>Phone<input id="ph" type="tel" required autocomplete="tel"></label>
+<label>Email<input id="em" type="email" autocomplete="email"></label><label>Child’s name<input id="cn" required></label>
+<label>Child’s date of birth<input id="dob" type="date" required></label>
+<label>Program<select id="pr"><option>Playgroup</option><option selected>Nursery</option><option>LKG</option><option>UKG</option><option>Daycare</option></select></label>
+<label>Preferred year<select id="yr"><option>2026–27</option><option>2027–28</option></select></label>
+<label class="f">Message<textarea id="ms" rows="3"></textarea></label>
+<div class="f" style="grid-column:1/-1"><button class="btn" type="submit">Send enquiry</button></div><div class="ok" id="ok" hidden role="status"></div></form></section>
+
+<div class="band"><section id="contact" class="w"><p class="k">Contact</p><h2>Visit us</h2>
+<div class="g"><div class="c t1"><h3>Address</h3><p>Sunshine Kids Preschool<br>Satellite, Ahmedabad, Gujarat</p></div>
+<div class="c t2"><h3>Hours</h3><p>Monday to Saturday<br>8:30 AM to 5:00 PM</p></div>
+<div class="c t3"><h3>Phone and email</h3><p>+91 98250 00000<br>hello@sunshinekids.example</p></div></div>
+<p style="color:var(--mut);margin-top:16px">Demo details. The school replaces them with real contact information.</p></section></div>
+
+<footer><div class="w">© 2026 Sunshine Kids Preschool · Privacy policy: we never use children’s photos for advertising · Powered by Preschool OS</div></footer>
+<script>
+var r=document.documentElement,tg=document.getElementById('tg');
+function cur(){return r.dataset.theme||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light')}
+function lab(){tg.textContent=cur()==='dark'?'Light mode':'Dark mode'}lab();
+tg.onclick=function(){r.dataset.theme=cur()==='dark'?'light':'dark';lab()};
+document.getElementById('f').addEventListener('submit',function(e){e.preventDefault();
+var n=document.getElementById('cn').value,p=document.getElementById('pr').value,o=document.getElementById('ok');
+o.hidden=false;o.textContent='Thank you. We received your enquiry for '+n+' ('+p+'). In this demo nothing is sent; the real site passes it to the school’s Admissions inbox.';
+e.target.reset();document.getElementById('pr').value='Nursery'});
+</script>

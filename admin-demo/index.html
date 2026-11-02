@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><title>Preschool OS — Admin Demo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Baloo+2:wght@600;700;800&display=swap">
+<style>
+:root{--bg:#f6f8fb;--card:#fff;--ink:#27304a;--mut:#5f6b86;--line:#e6eaf1;--sh:#e6eaf1;--blue:#dcebfb;--mint:#d9f2e5;--lav:#e8e1f8;--yel:#fdf0c4;--peach:#fde1d4;--pink:#fbdbe8;--acc:#3d5fd0;--ok:#2f9e6e;--warn:#c98a0a;--bad:#d4513f;font-family:Nunito,system-ui,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#14171f;--card:#1c212c;--ink:#eef0f5;--mut:#9aa3b5;--line:#2a3040;--blue:#22345a;--mint:#1d4034;--lav:#33305a;--yel:#4a3f1c;--peach:#4d3226;--acc:#7fa6f0;--sh:#0d0f14}}
+:root[data-theme="dark"]{--bg:#14171f;--card:#1c212c;--ink:#eef0f5;--mut:#9aa3b5;--line:#2a3040;--blue:#22345a;--mint:#1d4034;--lav:#33305a;--yel:#4a3f1c;--peach:#4d3226;--acc:#7fa6f0;--sh:#0d0f14}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-size:15px;line-height:1.5}
+button,input,select,textarea{font:inherit;color:inherit}button{cursor:pointer}
+:focus-visible{outline:3px solid var(--acc);outline-offset:2px}
+h1,h2,h3{font-family:'Baloo 2',system-ui,sans-serif;margin:0;letter-spacing:-.01em}
+#app{display:flex;min-height:100vh;position:relative;z-index:1}#dec{position:fixed;inset:0;pointer-events:none;z-index:0;font-size:46px;opacity:.55}#dec span{position:absolute}.hero{position:relative;background:var(--blue);border-radius:30px;padding:26px 30px;margin:6px 0 20px;overflow:hidden;border:2px solid var(--line);box-shadow:0 5px 0 var(--sh)}.hero h1{font-size:34px}.hero p{margin:4px 0 0;max-width:60%}.hero .a,.hero .b,.hero .c{position:absolute;font-size:64px}.hero .a{right:28px;top:10px}.hero .b{right:130px;top:42px;font-size:44px}.hero .c{right:26px;bottom:6px;font-size:40px;letter-spacing:6px}@media(max-width:860px){.hero p{max-width:100%}.hero .b,.hero .c{display:none}}
+aside{width:248px;background:var(--card);border-right:2px solid var(--line);border-top:7px solid;border-image:linear-gradient(90deg,#ff8f8f,#ffd36b,#8fe0a8,#7ec3ff,#b79bff) 1;padding:18px 12px;position:sticky;top:0;height:100vh;overflow:auto;transition:width .2s;flex:none}
+aside.c{width:68px}aside.c .tx{display:none}
+.logo{display:flex;gap:10px;align-items:center;padding:4px 8px 16px}.lg{width:36px;height:36px;border-radius:12px;background:var(--yel);display:grid;place-items:center;font-size:20px;flex:none}
+.lg{background:var(--yel);transform:rotate(-8deg)}.logo b{font-family:'Baloo 2',system-ui,sans-serif;font-size:18px;display:block;line-height:1.1}.logo small{color:var(--mut);font-size:12px}
+.grp{font-size:12px;color:var(--mut);padding:14px 10px 4px;font-weight:600}
+.nv{display:flex;gap:10px;align-items:center;width:100%;border:0;background:none;padding:8px 10px;border-radius:10px;text-align:left;color:var(--mut);font-weight:500}
+.nv:hover{background:var(--bg)}.nv.on{background:var(--yel);color:var(--ink);font-weight:800;box-shadow:0 3px 0 #f0cf6a}.nv{border-radius:16px}.nv i{font-style:normal;width:20px;text-align:center}
+main{flex:1;min-width:0}
+header{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 28px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:20}
+header .r{display:flex;gap:10px;align-items:center;position:relative}
+.in,select{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:8px 12px}
+.ib{background:var(--card);border:1px solid var(--line);border-radius:12px;width:38px;height:38px}
+.av{width:38px;height:38px;border-radius:50%;background:var(--lav);display:grid;place-items:center;font-weight:700;flex:none}
+.pop{position:absolute;right:0;top:46px;width:330px;background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:0 12px 40px #0002;padding:8px;z-index:30;animation:pp .15s}
+.pop a{display:block;padding:9px 12px;border-radius:10px;color:inherit;text-decoration:none;cursor:pointer}.pop a:hover{background:var(--bg)}
+@keyframes pp{from{opacity:0;transform:translateY(-6px)}}
+#v{padding:4px 28px 60px;max-width:1280px;animation:pp .25s}
+.hd{margin:6px 0 20px}.hd h1{font-size:30px}.hd p{color:var(--mut);margin:4px 0 0}
+.g{display:grid;gap:16px}.k5{grid-template-columns:repeat(auto-fit,minmax(190px,1fr))}.k3{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}.k2{grid-template-columns:1.4fr 1fr}
+.cd{background:var(--card);border-radius:26px;padding:20px;box-shadow:0 5px 0 var(--sh);border:2px solid var(--line)}
+.cd.h{cursor:pointer;transition:transform .15s}.cd.h:hover{transform:translateY(-3px) rotate(-.4deg)}
+.big{font-family:'Baloo 2',system-ui,sans-serif;font-size:34px;font-weight:700;line-height:1.1}.mut{color:var(--mut);font-size:13px}
+.pill{display:inline-block;padding:2px 12px;border-radius:99px;font-size:12px;font-weight:800;background:var(--blue);border:2px solid #0000000d}
+.p-ok{background:var(--mint)}.p-w{background:var(--yel)}.p-b{background:var(--peach)}.p-l{background:var(--lav)}
+.btn{border:2px solid var(--line);background:var(--card);padding:7px 16px;border-radius:99px;font-weight:800;box-shadow:0 3px 0 var(--sh)}.btn:active{transform:translateY(2px);box-shadow:none}.btn:hover{background:var(--bg)}.btn.p{background:var(--acc);color:#fff;border-color:var(--acc)}.btn.s{padding:4px 10px;font-size:13px}
+.jr{display:flex;gap:6px;margin-top:18px;overflow-x:auto;padding-bottom:6px}
+.js{flex:1;min-width:84px;text-align:center}.js .ic{font-size:26px}.js .bar{height:130px;background:var(--bg);border-radius:18px;position:relative;overflow:hidden;display:flex;align-items:flex-end}
+.js .bar b{display:block;width:100%;border-radius:14px;animation:gr 1s ease-out;transform-origin:bottom}
+@keyframes gr{from{transform:scaleY(0)}}
+.js .pc{font-family:'Baloo 2',system-ui,sans-serif;font-size:20px;font-weight:700;margin-top:8px}.js .nm{font-size:12px;color:var(--mut)}
+table{width:100%;border-collapse:collapse}th{text-align:left;font-size:12px;color:var(--mut);font-weight:600;padding:8px 10px}td{padding:11px 10px;border-top:1px solid var(--line)}tr.rw{cursor:pointer}tr.rw:hover{background:var(--bg)}
+.tw{overflow-x:auto}
+.at{display:flex;justify-content:space-between;align-items:center;padding:10px 12px;border-radius:12px;margin-bottom:8px;background:var(--bg);cursor:pointer;gap:8px}.at:hover{outline:1px solid var(--line)}
+.tl{border-left:2px solid var(--line);margin-left:6px;padding-left:20px}.ti{position:relative;padding-bottom:18px}.ti:before{content:"";position:absolute;left:-27px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--acc);border:3px solid var(--card)}
+.ti.w:before{background:var(--warn)}.ti q{display:block;background:var(--yel);padding:8px 12px;border-radius:12px;margin-top:6px;quotes:none;font-style:italic}
+.tabs{display:flex;gap:4px;overflow-x:auto;border-bottom:1px solid var(--line);margin:16px 0}.tab{border:0;background:none;padding:9px 14px;color:var(--mut);font-weight:600;border-bottom:3px solid transparent;white-space:nowrap}.tab.on{color:var(--ink);border-color:var(--acc)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}.chip{border:1px solid var(--line);background:var(--card);padding:5px 14px;border-radius:99px}.chip.on{background:var(--ink);color:var(--bg)}
+.ph{height:130px;border-radius:14px;display:grid;place-items:center;font-size:38px;margin-bottom:10px}
+.ok{color:var(--ok)}.ip{color:var(--acc)}.ns{color:var(--mut)}.na{color:var(--bad)}
+.tst{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 20px;border-radius:12px;z-index:90;animation:pp .2s}
+.md{position:fixed;inset:0;background:#0007;display:grid;place-items:center;z-index:80}.md>div{background:var(--card);padding:24px;border-radius:20px;width:min(420px,92vw);display:grid;gap:10px;animation:pp .2s}
+.em{text-align:center;padding:40px;color:var(--mut)}.em div{font-size:36px}
+#mb{display:none}
+@media(max-width:860px){aside{position:fixed;left:-260px;z-index:60;transition:left .2s}aside.o{left:0}#mb{display:block}.k2{grid-template-columns:1fr}header,#v{padding-left:14px;padding-right:14px}.pop{width:min(330px,88vw)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.g>.cd{border-top:9px solid var(--blue)}.g>.cd:nth-child(5n+2){border-top-color:var(--mint)}.g>.cd:nth-child(5n+3){border-top-color:var(--lav)}.g>.cd:nth-child(5n+4){border-top-color:var(--yel)}.g>.cd:nth-child(5n+5){border-top-color:var(--peach)}
+.cd[style*="background"] .mut{color:var(--ink);opacity:.85}
+.hero{background:var(--yel)}
+.nv i{width:32px;height:32px;line-height:32px;border-radius:11px;font-size:16px}
+.nv:nth-of-type(5n+1) i{background:var(--blue)}.nv:nth-of-type(5n+2) i{background:var(--mint)}.nv:nth-of-type(5n+3) i{background:var(--lav)}.nv:nth-of-type(5n+4) i{background:var(--yel)}.nv:nth-of-type(5n+5) i{background:var(--pink)}
+.nv.on{background:var(--yel)}
+.grp{color:var(--acc);font-weight:800}
+.btn.p{background:var(--acc);box-shadow:0 3px 0 #2c3cae}.chip.on{background:var(--acc);color:#fff;border-color:var(--acc)}
+.p-ok{background:var(--mint)}.p-w{background:var(--yel)}.p-b{background:var(--peach)}.p-l{background:var(--lav)}.pill{color:#27304a}
+.at:nth-child(4n+1){background:#ffe0d6}.at:nth-child(4n+2){background:#fff0b8}.at:nth-child(4n+3){background:#fff0b8}.at:nth-child(4n+4){background:#d4eaff}.at{color:#27304a}
+.tl .ti:nth-child(5n+1):before{background:#ff7a59}.tl .ti:nth-child(5n+2):before{background:#f5b800}.tl .ti:nth-child(5n+3):before{background:#2fb872}.tl .ti:nth-child(5n+4):before{background:#4a8bff}.tl .ti:nth-child(5n+5):before{background:#9a6bff}
+.tl .ti:before{width:14px;height:14px;left:-28px}
+.js:nth-child(3n+1) .pc{color:#e5573a}.js:nth-child(3n+2) .pc{color:#1f9b61}.js:nth-child(3n+3) .pc{color:#6a4ae0}
+tr.rw:hover{background:#fff4c9}th{color:var(--acc);font-weight:800}
+.ph{font-size:48px}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .at,:root:not([data-theme="light"]) tr.rw:hover{color:#27304a}}
+:root[data-theme="dark"]{--pink:#5a2a44;color-scheme:dark}:root[data-theme="light"]{color-scheme:light}
+:root[data-theme="dark"] .pill{color:var(--ink)}
+:root[data-theme="dark"] .at{background:var(--bg);color:var(--ink)}
+:root[data-theme="dark"] tr.rw:hover{background:var(--bg)}
+:root[data-theme="dark"] #dec{opacity:.18}
+:root[data-theme="dark"] .btn.p{box-shadow:0 3px 0 #0d0f14;color:#14171f}
+:root[data-theme="dark"] .chip.on{color:#14171f}
+:root[data-theme="dark"] .hero{background:#3a3320}
+
+#dec,.hero .b,.hero .c{display:none}
+aside{border-top:0;border-image:none}
+.cd,.g>.cd:nth-child(n){border:1px solid var(--line);border-radius:20px;box-shadow:0 1px 2px #0000000a,0 8px 24px #1d24330a}
+.cd.h:hover{transform:translateY(-2px)}
+.btn{border:1px solid var(--line);border-radius:12px;box-shadow:none;font-weight:700}.btn:active{transform:none}
+.btn.p{box-shadow:none}
+.pill{border:0;font-weight:700}
+.nv{border-radius:12px;font-weight:600}.nv i{background:none!important;width:22px;height:auto;line-height:1.4;font-size:16px}
+.nv.on{background:var(--blue);box-shadow:none;font-weight:700}
+.grp{color:var(--mut);font-weight:700;letter-spacing:.04em}
+.hero{background:var(--blue);border-radius:22px;box-shadow:none;padding:22px 28px}.hero h1{font-size:28px}.hero .a{font-size:52px}
+.at,.at:nth-child(n){background:var(--bg);border:1px solid var(--line)}
+.tl .ti:nth-child(n):before{background:var(--acc)}
+.js:nth-child(n) .pc{color:var(--ink)}
+th{color:var(--mut);font-weight:700}tr.rw:hover{background:var(--bg)}
+h1,h2,h3{font-weight:700}.hd h1{font-size:28px}
+.chip{border-radius:10px}.chip.on{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.lg{transform:none}
+</style></head><body><div id="dec" aria-hidden="true"><span style="left:46%;top:3%">☁️</span><span style="right:5%;top:30%">⭐</span><span style="right:12%;bottom:6%">🧸</span><span style="left:30%;bottom:4%">🔤</span><span style="right:30%;top:55%">☁️</span></div>
+<div id="app"><aside id="sb"></aside><main><header id="hd"></header><div id="v"></div></main></div><div id="t"></div>
+<script>
+const $=s=>document.querySelector(s),ST=['Arrival','Circle Time','Learning','Snack','Activity','Lunch','Nap','Creative Play','Pickup'],SP=[96,91,89,94,86,82,74,68,0],COL=['--blue','--mint','--lav','--yel','--peach'];
+const CL=[{id:'na',n:'Nursery A',t:'Priya Sharma',c:24,p:22,j:88,a:'Colour Recognition'},{id:'la',n:'LKG A',t:'Neha Patel',c:28,p:26,j:91,a:'Letter B Phonics'},{id:'ua',n:'UKG A',t:'Rahul Mehta',c:30,p:28,j:76,a:'Number Games'}];
+const N=['Aarav Patel','Anaya Shah','Vivaan Mehta','Kiara Desai','Reyansh Shah','Aadhya Patel','Arjun Mehta','Myra Shah','Ishaan Joshi','Diya Trivedi','Vihaan Modi','Saanvi Parekh'],PN=['Rohan Patel','Neha Shah','Amit Mehta','Pooja Desai','Kunal Shah','Hetal Patel','Sanjay Mehta','Dhara Shah','Nikhil Joshi','Rina Trivedi','Jay Modi','Komal Parekh'];
+const AT=['Present','Present','Present','Absent','Present','Absent','Present','Late','Present','Absent','Present','Present'],JV=[92,87,81,0,78,0,85,94,70,0,88,83],FE=['Paid','Pending','Paid','Overdue','Paid','Partial','Paid','Paid','Pending','Overdue','Paid','Paid'];
+const AN=['🐻','🐰','🦊','🐼','🦁','🐯','🐨','🐸','🐵','🐥','🦄','🐙'];
+const K=N.map((n,i)=>({id:i+1,n,cl:CL[i%3],age:`${3+i%3}y ${(i*5)%12}m`,at:AT[i],j:JV[i],par:PN[i],fee:FE[i],ph:`+91 98250 0${1000+i*37}`,an:AN[i],pk:i%3==0?'Waiting':i%4==1?'Completed':'Waiting',vf:false,rs:''}));
+const OB=[[1,'Language','Recognized common classroom words and responded to simple questions.','Story Time','Photo'],[1,'Cognitive','Correctly identified red, blue and yellow independently.','Colour Recognition','Photo'],[2,'Social & Emotional','Shared blocks with a friend and waited for her turn.','Free Play','Teacher note'],[8,'Motor','Held the pencil with a tripod grip while tracing letter B.','Phonics','Photo'],[5,'Creativity','Mixed paints and described the new colour she made.','Colour Mixing','Photo']].map(o=>({k:o[0],a:o[1],t:o[2],act:o[3],ev:o[4],d:'Oct 6'}));
+const PF=[[1,'Colour Mixing','Priya Sharma',1],[2,'Letter B Craft','Neha Patel',1],[3,'Number Hunt','Rahul Mehta',0],[5,'Clay Shapes','Neha Patel',0],[8,'Music & Movement','Rahul Mehta',1],[1,'Story Time','Priya Sharma',0]].map(p=>({k:p[0],act:p[1],t:p[2],ok:!!p[3]}));
+const FD=[[ '09:04 AM','Aarav arrived'],['09:32 AM','Nursery A completed Colour Recognition'],['10:08 AM','18 children completed Letter B activity'],['10:25 AM','Snack recorded for LKG A'],['11:15 AM','Teacher Priya added an observation for Anaya'],['12:30 PM','Lunch completed'],['01:05 PM','Nap started for Nursery A'],['03:20 PM','12 portfolio photos uploaded']];
+const AD=[['Colour Hunt','Colors','3–4 yrs','20 min','Color Recognition'],['Letter B Craft','Phonics','3–5 yrs','25 min','Phonics'],['Counting Stones','Numbers','4–5 yrs','15 min','Numbers'],['Shape Walk','Shapes','3–4 yrs','20 min','Shapes'],['Story Circle','Storytelling','3–5 yrs','30 min','Language'],['Bean Bag Toss','Outdoor Play','3–5 yrs','25 min','Gross Motor']];
+const TC=[['Priya Sharma','Nursery A',100,92,4,18],['Neha Patel','LKG A',100,91,3,14],['Rahul Mehta','UKG A',96,76,1,9]];
+let TH;try{TH=localStorage.getItem('pos-theme')}catch(e){}TH=TH||(matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.dataset.theme=TH;
+let S={cl:'all',tab:'overview',coll:false,pop:'',ctr:'Satellite',q:'',fq:''};
+const cur=()=>(location.hash.slice(2)||'overview').split('/');
+const go=h=>{location.hash='#/'+h;S.pop='';S.tab='overview'};
+function toast(m){const e=$('#t');e.innerHTML=`<div class="tst" role="status">${m}</div>`;setTimeout(()=>e.innerHTML='',2200)}
+function modal(title,body,ok){const m=document.createElement('div');m.className='md';m.innerHTML=`<div role="dialog" aria-label="${title}"><h3>${title}</h3>${body}<div style="display:flex;gap:8px;justify-content:flex-end"><button class="btn" id="mc">Cancel</button><button class="btn p" id="mo">Save</button></div></div>`;document.body.append(m);m.querySelector('#mc').onclick=()=>m.remove();m.querySelector('#mo').onclick=()=>{ok(m);m.remove()}}
+const pill=(s)=>`<span class="pill ${/Paid|Present|Complet|Verified|Parent/.test(s)?'p-ok':/Pending|Late|Partial|Waiting/.test(s)?'p-w':'p-b'}">${s}</span>`;
+const bar=(p,c='--acc')=>`<div style="height:8px;border-radius:9px;background:var(--bg);overflow:hidden"><div style="width:${p}%;height:100%;background:var(${c});transition:width .8s"></div></div>`;
+const hdr=(t,s,a='')=>`<div class="hd" style="display:flex;justify-content:space-between;align-items:end;gap:10px;flex-wrap:wrap"><div><h1>${t}</h1><p>${s}</p></div><div>${a}</div></div>`;
+const empty=(i,t)=>`<div class="em"><div>${i}</div><b>${t}</b></div>`;
+const NAV=[['MAIN',[['overview','🏠','Overview'],['children','🧒','Children'],['families','👪','Families'],['classes','🏫','Classes'],['teachers','🧑‍🏫','Teachers']]],['DAILY OPERATIONS',[['journey','🌤️','Today\'s Journey'],['attendance','✅','Attendance'],['activities','🎨','Activities'],['portfolio','📷','Photos & Portfolio'],['pickup','🛡️','Pickup & Safety']]],['LEARNING',[['observations','🌱','Observations']]],['ADMINISTRATION',[['fees','₹','Fees'],['messages','💬','Messages'],['reports','📊','Reports'],['settings','⚙️','Settings']]]];
+function shell(){const p=cur()[0],ch=p=='child'?'children':p;
+$('#sb').className=(S.coll?'c ':'')+(S.mob?'o':'');
+$('#sb').innerHTML=`<div class="logo"><div class="lg">🌈</div><div class="tx"><b>Preschool OS</b><small>Child-first preschool management</small></div></div>`+NAV.map(g=>`<div class="grp tx">${g[0]}</div>`+g[1].map(n=>`<button class="nv ${n[0]==ch?'on':''}" data-g="${n[0]}" title="${n[2]}"><i>${n[1]}</i><span class="tx">${n[2]}</span></button>`).join('')).join('')+`<div class="grp tx"> </div><button class="nv" data-c="1"><i>«</i><span class="tx">Collapse</span></button><button class="nv" data-h="1"><i>❔</i><span class="tx">Help & Support</span></button><div class="nv"><span class="av" style="width:28px;height:28px;font-size:12px">PS</span><span class="tx">Priya · Admin</span></div>`;
+$('#hd').innerHTML=`<div style="display:flex;gap:10px;align-items:center"><button class="ib" id="mb" aria-label="Menu">☰</button><div><b style="font-size:18px">Good morning, Priya 👋</b><div class="mut">Sunshine Kids Preschool</div></div></div><div class="r"><input class="in" id="q" placeholder="Search children, parents, teachers…" aria-label="Global search" value="${S.q}" style="width:230px"><div class="chips" style="margin:0;gap:0" role="group" aria-label="Theme"><button class="chip ${TH=='light'?'on':''}" data-th="light" style="border-radius:99px 0 0 99px">☀️ Light</button><button class="chip ${TH=='dark'?'on':''}" data-th="dark" style="border-radius:0 99px 99px 0">🌙 Dark</button></div><button class="ib" data-p="n" aria-label="Notifications">🔔</button><button class="ib" data-h="1" aria-label="Help">?</button><select id="ct" aria-label="Centre">${['Satellite','Vastrapur','Maninagar'].map(c=>`<option ${c==S.ctr?'selected':''}>${c}</option>`).join('')}</select><div class="av">PS</div>${pop()}</div>`;}
+function pop(){if(S.pop=='n')return`<div class="pop">${[['attendance','🔴 3 children absent without reason'],['observations','🟡 4 observations pending'],['pickup','🔵 2 pickup exceptions'],['fees','🟡 5 fee payments overdue']].map(n=>`<a data-g="${n[0]}">${n[1]}</a>`).join('')}</div>`;
+if(S.q){const q=S.q.toLowerCase(),r=K.filter(k=>(k.n+k.par).toLowerCase().includes(q)).map(k=>`<a data-g="child/${k.id}"><b>${k.n}</b><div class="mut">${k.cl.n} · Parent: ${k.par}</div></a>`).concat(TC.filter(t=>t[0].toLowerCase().includes(q)).map(t=>`<a data-g="teachers"><b>${t[0]}</b><div class="mut">Teacher · ${t[1]}</div></a>`),CL.filter(c=>c.n.toLowerCase().includes(q)).map(c=>`<a data-g="classes"><b>${c.n}</b><div class="mut">Class</div></a>`));return`<div class="pop">${r.join('')||empty('🔍','No results for “'+S.q+'”')}</div>`}return''}
+const KI={'Children':'🧒',"Today's Journey":'🌤️','Parent Engagement':'💌','Fees':'🪙','Learning':'🌱','Present':'😊','Absent':'🤒','Late':'⏰','Unmarked':'❔','Expected':'🚌','Completed':'🏠','Waiting':'⏳','Exceptions':'🚩'};
+function kpi(l,v,s,c){return`<div class="cd" style="background:var(${c})"><div class="mut"><b>${KI[l]||''} ${l}</b></div><div class="big">${v}</div><div class="mut">${s}</div></div>`}
+function ribbon(){return`<div class="cd h" data-g="journey"><h2>Today's Child Journey</h2><div class="mut">See how the children experienced their day. Tap to open every class.</div><div class="jr">${ST.map((s,i)=>`<div class="js"><div class="ic">${["🚪","🎶","📚","🍎","🎨","🍱","😴","🧩","🚌"][i]}</div><div class="bar"><b style="height:${Math.max(SP[i],3)}%;background:var(${COL[i%5]})"></b></div><div class="pc">${SP[i]}%</div><div class="nm">${s}</div></div>`).join('')}</div></div>`}
+function classCard(c){return`<div class="cd h" data-g="classes"><div style="display:flex;justify-content:space-between"><h3>${c.n}</h3>${pill(Math.round(c.p/c.c*100)+'% in')}</div><div class="mut">${c.t} · ${c.p} of ${c.c} present</div><p>Now: <b>${c.a}</b></p><div class="mut">Journey ${c.j}% complete</div>${bar(c.j)}<p><button class="btn s" data-g="journey" data-cl="${c.id}">View Class</button></p></div>`}
+const V={
+overview:()=>`<div class="hero"><h1>Good morning, Priya 👋</h1><p>Here's what's happening at Sunshine Kids today.<br><b>Monday, October 6, 2026</b></p><span class="a">☀️</span><span class="b">🌈</span><span class="c">🔤🧸🔢</span></div>`+`<div class="g k5">${kpi('Children','124','112 present · 90.3% attendance','--blue')}${kpi('Today\'s Journey','87%','108 of 124 children','--mint')}${kpi('Parent Engagement','87%','This week','--lav')}${kpi('Fees','₹2,84,000','Collected · ₹42,000 outstanding','--yel')}${kpi('Learning','18','Activities today · 4 observations pending','--peach')}</div><br>${ribbon()}<br><div class="g k2"><div class="cd"><h2>What's happening today?</h2><br><div class="tl">${FD.map(f=>`<div class="ti"><b>${f[0]}</b><div>${f[1]}</div></div>`).join('')}</div></div><div class="cd"><h2>Needs Attention</h2><br>${[['🔴','3 children absent without reason','Review attendance','attendance'],['🟡','4 observations pending','Review observations','observations'],['🟡','5 overdue fee payments','View fees','fees'],['🔵','2 pickup exceptions','Review pickup','pickup']].map(a=>`<div class="at" data-g="${a[3]}"><span>${a[0]} <b>${a[1]}</b></span><span class="btn s">${a[2]}</span></div>`).join('')}</div></div><br><h2>Classes Today</h2><br><div class="g k3">${CL.map(classCard).join('')}</div>`,
+children:()=>{const l=K.filter(k=>(S.cl=='all'||k.cl.id==S.cl)&&(k.n+k.par).toLowerCase().includes(S.fq.toLowerCase()));return hdr('Children','Manage every child\'s preschool journey.',`<button class="btn" onclick="toast('Export ready (demo)')">Export</button> <button class="btn p" id="add">Add Child</button>`)+`<div class="chips"><input class="in" id="fq" placeholder="Search children" aria-label="Filter children" value="${S.fq}">${chips()}</div><div class="cd tw">${l.length?`<table><tr><th>Child<th>Class<th>Age<th>Attendance<th>Journey<th>Parent<th>Fees<th>Status</tr>${l.map(k=>`<tr class="rw" data-g="child/${k.id}"><td><b>${k.an} ${k.n}</b><td>${k.cl.n}<td>${k.age}<td>${pill(k.at)}<td>${k.j}%<td>${k.par}<td>${pill(k.fee)}<td>Active</tr>`).join('')}</table>`:empty('🧒','No children match your filters')}</div>`},
+child:(id)=>{const k=K[id-1]||K[0],t=S.tab;let b='';
+if(t=='overview')b=`<div class="g k3"><div class="cd"><h3>Today's Status</h3><p>${pill(k.at)}</p><p>Arrival: <b>08:55 AM</b><br>Current activity: <b>Creative Learning</b><br>Pickup: <b>${k.pk}</b></p></div><div class="cd"><h3>Journey completion</h3><div class="big">${k.j}%</div>${bar(k.j,'--ok')}</div><div class="cd"><h3>Family</h3><p>${k.par}<br><span class="mut">${k.ph}</span></p><p>Parent engagement: <b>92%</b></p></div></div>`;
+else if(t=='journey')b=`<div class="cd"><h2>${k.n.split(' ')[0]}'s Day</h2><br><div class="tl">${[['08:55 AM','Arrived','Checked in by Teacher Priya'],['09:30 AM','Circle Time','Hello Song + Greetings'],['10:00 AM','Learning Activity — Colour Recognition','','Correctly identified red, blue and yellow independently.'],['10:30 AM','Snack','Completed'],['11:15 AM','Phonics — Letter B','','Recognized the letter B with visual support.'],['12:20 PM','Lunch','Completed'],['01:00 PM','Nap','Duration: 52 minutes'],['03:00 PM','Music & Movement','Completed'],['04:05 PM','Pickup','Waiting for authorized pickup',,1]].map(e=>`<div class="ti ${e[4]?'w':''}"><b>${e[0]}</b> · ${e[1]}<div class="mut">${e[2]||''}</div>${e[3]?`<q>${e[3]}</q>`:''}</div>`).join('')}</div></div>`;
+else if(t=='learning')b=obsList(OB.filter(o=>o.k==k.id));
+else if(t=='portfolio')b=pfGrid(PF.filter(p=>p.k==k.id));
+else if(t=='pickup')b=pkCard(k);
+else b=`<div class="cd">${empty('📁',t[0].toUpperCase()+t.slice(1)+' details will appear here in the full product')}</div>`;
+return`<div class="cd" style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div class="av" style="width:72px;height:72px;font-size:26px;background:var(--mint);font-size:42px">${k.an}</div><div style="flex:1"><h1>${k.n}</h1><div class="mut">${k.cl.n} · ${k.age.replace('y',' years ').replace('m',' months')}</div><p style="margin:8px 0 0">${pill(k.at)} ${pill('Journey '+k.j+'%')} ${pill('Engagement 92%')} ${pill('Fees '+k.fee)} ${pill('Pickup authorized')}</p></div><button class="btn" data-g="children">← Children</button></div><div class="tabs" role="tablist">${['overview','journey','learning','portfolio','attendance','fees','family','pickup','documents','history'].map(x=>`<button class="tab ${x==t?'on':''}" data-t="${x}">${{journey:"Today's Journey",history:'Activity History'}[x]||x[0].toUpperCase()+x.slice(1)}</button>`).join('')}</div>${b}`},
+journey:()=>{const l=K.filter(k=>S.cl=='all'||k.cl.id==S.cl);const ic=(k,i)=>{const p=Math.round(k.j/100*8);return k.at=='Absent'?(i==0?'<b class="na" title="Needs attention">⚠</b>':'<span class="ns">○</span>'):i<p?'<b class="ok">✓</b>':i==p?'<b class="ip">●</b>':'<span class="ns">○</span>'};
+return hdr('Today\'s Journey','Track every child\'s day from arrival to pickup.',`<div class="big">87%</div><div class="mut">Overall completion</div>`)+`<div class="chips">${chips()}</div><div class="cd tw"><table><tr><th>Child<th>Arrival<th>Activity<th>Meal<th>Nap<th>Learning<th>Photo<th>Pickup</tr>${l.map(k=>`<tr class="rw" data-g="child/${k.id}"><td><b>${k.an} ${k.n}</b><div class="mut">${k.cl.n}</div>${[0,2,3,6,2,4,8].map(i=>`<td>${ic(k,i)}`).join('')}</tr>`).join('')}</table><p class="mut">✓ Completed · ● In progress · ○ Not started · ⚠ Needs attention</p></div>`},
+attendance:()=>{const c=x=>K.filter(k=>k.at==x).length+({Present:100,Absent:6,Late:1}[x]||0);return hdr('Attendance','Monday, October 6, 2026')+`<div class="g k5">${kpi('Present',c('Present'),'','--mint')}${kpi('Absent',c('Absent'),'','--peach')}${kpi('Late',c('Late'),'','--yel')}${kpi('Unmarked',0,'','--blue')}</div><br><div class="chips">${chips()}</div><div class="cd tw"><table><tr><th>Child<th>Class<th>Status<th>Reason<th>Mark</tr>${K.filter(k=>S.cl=='all'||k.cl.id==S.cl).map(k=>`<tr><td><b>${k.an} ${k.n}</b><td>${k.cl.n}<td>${pill(k.at)}<td>${k.rs||'—'}<td>${['Present','Absent','Late'].map(s=>`<button class="btn s" data-at="${k.id}|${s}">${s}</button>`).join(' ')}</tr>`).join('')}</table></div>`},
+classes:()=>hdr('Classes','Every classroom, live.')+`<div class="g k3">${CL.map(classCard).join('')}</div>`,
+teachers:()=>hdr('Teachers','Who is recording the day.')+`<div class="cd tw"><table><tr><th>Teacher<th>Class<th>Attendance<th>Journey<th>Observations<th>Photos<th>Last active</tr>${TC.map(t=>`<tr><td><b>${t[0]}</b><td>${t[1]}<td>${t[2]}%<td>${t[3]}%<td>${t[4]}<td>${t[5]}<td>Just now</tr>`).join('')}</table></div>`,
+activities:()=>hdr('Activities','Activity library')+`<div class="g k3">${AD.map((a,i)=>`<div class="cd"><div class="ph" style="background:var(${COL[i%5]})">🎨</div><h3>${a[0]}</h3><div class="mut">${a[1]} · Age ${a[2]} · ${a[3]}<br>Skill: ${a[4]}</div><p><button class="btn s" onclick="toast('${a[0]} started')">Start Activity</button></p></div>`).join('')}</div>`,
+observations:()=>hdr('Observations','Developmental notes, not marks.',`<button class="btn p" id="ao">Add observation</button>`)+obsList(OB),
+portfolio:()=>hdr('Portfolio','Photo evidence linked to learning.')+pfGrid(PF),
+pickup:()=>hdr('Pickup & Safety','Only verified guardians leave with a child.')+`<div class="g k5">${kpi('Expected',118,'','--blue')}${kpi('Completed',64+K.filter(k=>k.pk=='Completed').length*0,'','--mint')}${kpi('Waiting',42,'','--yel')}${kpi('Exceptions',2,'','--peach')}</div><br><div class="g k3">${K.filter(k=>k.at!='Absent').map(pkCard).join('')}</div>`,
+fees:()=>hdr('Fees','Collected ₹2,84,000 · Outstanding ₹42,000 · Overdue ₹18,500 · Collection rate 87%')+`<div class="cd tw"><table><tr><th>Child<th>Parent<th>Invoice<th>Amount<th>Due<th>Status<th>Action</tr>${K.map((k,i)=>`<tr><td><b>${k.an} ${k.n}</b><td>${k.par}<td>INV-${2600+i}<td>₹${(8500+i%3*1500).toLocaleString('en-IN')}<td>Oct 10<td>${pill(k.fee)}<td>${k.fee!='Paid'?`<button class="btn s" data-fee="${k.id}">Mark paid</button>`:'—'}</tr>`).join('')}</table></div>`,
+families:()=>hdr('Families','Parents and their engagement.')+`<div class="cd tw"><table><tr><th>Parent<th>Child<th>Phone<th>Engagement<th>Last opened</tr>${K.map((k,i)=>`<tr><td><b>${k.par}</b><td>${k.n}<td>${k.ph}<td>${92-i*3}%<td>Today, 10:${42-i} AM</tr>`).join('')}</table></div>`,
+messages:()=>hdr('Messages','Announcements, class updates, parent messages.')+`<div class="cd"><h3>Nursery A Parents</h3><p>“Today children enjoyed a colour recognition activity.”</p><button class="btn p" onclick="toast('Update sent to 24 parents')">Send Update</button> <button class="btn" onclick="toast('Scheduled for 5:00 PM')">Schedule</button> <button class="btn" onclick="toast('24 recipients')">View Recipients</button></div>`,
+reports:()=>hdr('Reports','Weekly view')+`<div class="g k3">${[['Attendance',90],['Child Journey',87],['Parent Engagement',87],['Observation coverage',78],['Fee collection',87],['Teacher activity',94]].map((r,i)=>`<div class="cd"><h3>${r[0]}</h3><div class="big">${r[1]}%</div>${bar(r[1],COL[i%5])}</div>`).join('')}</div>`,
+settings:()=>hdr('Settings','Centre, academic, users and parent experience.')+`<div class="g k3">${[['Centre','Sunshine Kids Preschool, Ahmedabad · 8:30 AM–5:00 PM'],['Academic','6 classes · Year 2026–27'],['Users','2 admins · 12 teachers'],['Parent Experience','Daily digest on · Photos need approval']].map(s=>`<div class="cd"><h3>${s[0]}</h3><p class="mut">${s[1]}</p></div>`).join('')}</div>`
+};
+function chips(){return`<div class="chips" style="margin:0">${[['all','All classes'],...CL.map(c=>[c.id,c.n])].map(c=>`<button class="chip ${S.cl==c[0]?'on':''}" data-cl="${c[0]}">${c[1]}</button>`).join('')}</div>`}
+function obsList(l){return l.length?`<div class="g k3">${l.map(o=>`<div class="cd"><span class="pill p-l">${o.a}</span><h3 style="margin-top:8px">${K[o.k-1].n}</h3><q style="display:block;font-style:italic;quotes:none">${o.t}</q><p class="mut">Evidence: ${o.ev} · ${o.act} · ${o.d} · ${pill('Recorded')}</p></div>`).join('')}</div>`:`<div class="cd">${empty('🌱','No observations yet')}</div>`}
+function pfGrid(l){return l.length?`<div class="g k3">${l.map((p,i)=>`<div class="cd"><div class="ph" style="background:var(${COL[(i+p.k)%5]})">${['🎨','🔤','🔢','🧱','🎵','📖'][i%6]}</div><h3>${p.act}</h3><div class="mut">${K[p.k-1].n} · ${p.t} · Oct 6</div><p>${p.ok?pill('Parent-visible'):`<button class="btn s" data-ph="${PF.indexOf(p)}">Approve</button>`}</p></div>`).join('')}</div>`:`<div class="cd">${empty('📷','No photos yet')}</div>`}
+function pkCard(k){return`<div class="cd"><h3>${k.n}</h3><div class="mut">Authorized: <b>${k.par}</b> · ${['Father','Mother'][k.id%2]}</div><p>${pill(k.pk)} ${k.vf?pill('Verified'):''}</p><button class="btn s" data-vf="${k.id}">Verify</button> <button class="btn s p" data-pk="${k.id}">Complete Pickup</button></div>`}
+function render(){const [p,id]=cur();shell();$('#v').innerHTML=(V[p]||V.overview)(id);document.title='Preschool OS — Admin Demo'}
+document.addEventListener('click',e=>{const t=e.target.closest('[data-th],[data-g],[data-c],[data-h],[data-p],[data-t],[data-cl],[data-at],[data-fee],[data-vf],[data-pk],[data-ph],#add,#ao,#mb');if(!t){if(S.pop){S.pop='';S.q='';shell()}return}
+const d=t.dataset;
+if(d.th){TH=d.th;document.documentElement.dataset.theme=TH;try{localStorage.setItem('pos-theme',TH)}catch(e){}return shell()}
+if(t.id=='mb'){S.mob=!S.mob;return shell()}
+if(d.cl){S.cl=d.cl;if(d.g)return go(d.g);return render()}
+if(d.g){S.mob=false;return go(d.g)}
+if(d.c){S.coll=!S.coll;return shell()}
+if(d.h)return toast('Help & Support: demo only');
+if(d.p){S.pop=S.pop?'':d.p;return shell()}
+if(d.t){S.tab=d.t;return render()}
+if(d.at){const[i,s]=d.at.split('|');K[i-1].at=s;if(s=='Absent'){K[i-1].rs='Sick'}toast(K[i-1].n+' marked '+s);return render()}
+if(d.fee){K[d.fee-1].fee='Paid';toast('Payment recorded');return render()}
+if(d.vf){K[d.vf-1].vf=true;toast('Guardian identity verified');return render()}
+if(d.pk){const k=K[d.pk-1];if(!k.vf)return toast('Verify the guardian first');k.pk='Completed';toast(k.n+' picked up safely');return render()}
+if(d.ph){PF[d.ph].ok=true;toast('Photo approved — now visible to parent');return render()}
+if(t.id=='add')modal('Add Child','<input class="in" id="nm" placeholder="Child name">',m=>{const n=m.querySelector('#nm').value||'New Child';K.push({...K[0],id:K.length+1,n,par:'Parent of '+n});toast(n+' added')||render()});
+if(t.id=='ao')modal('Add observation','<select id="oa"><option>Language</option><option>Cognitive</option><option>Motor</option><option>Creativity</option></select><textarea id="ot" rows="3" class="in" placeholder="What did you observe?"></textarea>',m=>{OB.unshift({k:1,a:m.querySelector('#oa').value,t:m.querySelector('#ot').value||'Showed curiosity during play.',act:'Free Play',ev:'Teacher note',d:'Oct 6'});toast('Observation recorded');render()})});
+document.addEventListener('input',e=>{if(e.target.id=='q'){S.q=e.target.value;S.pop='';const h=$('.pop');if(h)h.remove();const r=$('#hd .r');r.insertAdjacentHTML('beforeend',pop())}if(e.target.id=='fq'){S.fq=e.target.value;const p=e.target.selectionStart;render();const f=$('#fq');f.focus();f.setSelectionRange(p,p)}});
+document.addEventListener('change',e=>{if(e.target.id=='ct'){S.ctr=e.target.value;toast('Switched to Sunshine Kids — '+S.ctr)}});
+addEventListener('hashchange',render);render();
+</script></body></html>
